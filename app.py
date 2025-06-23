@@ -162,3 +162,4 @@ nonfiction_values = [st.session_state[g]/100 for g in nonfiction_genres]
 
 st.write(science_fiction+philosophy)
 st.write(users_data.head())
+
