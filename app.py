@@ -36,6 +36,22 @@ def interface_loader(file_paths):
             data_dict[name] = df
     return data_dict
 
+if "data_dict" not in st.session_state: 
+    st.session_state.data_dict = interface_loader(file_paths)
+
+data_dict = st.session_state.data_dict
+
+all_books = data_dict["all_books_final.parquet"]
+all_books_ratings = all_books[['title', 'rating', 'num_ratings']]
+books_author_date = all_books[['title', 'author', 'publish_date']]
+books_author_date = books_author_date.set_index('title')
+
+users_data = data_dict["users_data.parquet"]
+genre_labels = data_dict["genre_labels.parquet"]
+all_labeled_reviews = data_dict["all_labeled_reviews.parquet"]
+compact_user_genre_pct = data_dict["compact_user_genre_pct.parquet"]
+main_user_item_matrix = data_dict["main_user_item_matrix.parquet"]
+
 def genre_subtext(title, spaces = 2):
     """ Basic formatting/text function
         (not important)
@@ -109,3 +125,7 @@ with nonfiction_sliders:
 
 fiction_values = [st.session_state[g]/100 for g in fiction_genres]
 nonfiction_values = [st.session_state[g]/100 for g in nonfiction_genres]
+
+# ----------------------------- WORKED UP TO THIS POINT (trying load interface) -------------------------------
+
+st.write(users_data.head())
