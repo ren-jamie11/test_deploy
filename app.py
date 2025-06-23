@@ -39,6 +39,7 @@ file_paths = ["data/all_books_final.parquet",
 @st.cache_data
 def interface_loader(file_paths):
     """ Load parquet files one by one, with debug info. """
+    st.write("new attempt!")
     data_dict = {}
     for path in file_paths:
         st.write(f"🔄 Loading {path}...")
