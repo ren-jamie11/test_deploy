@@ -53,12 +53,9 @@ def interface_loader(file_paths):
             raise e  # Optional: crash visibly
     return data_dict
 
-if "data_dict" not in st.session_state: 
-    st.write("starting... interface loader")
-    st.session_state.data_dict = interface_loader(file_paths)
-    st.write("interface loader successul!")
 
-# data_dict = st.session_state.data_dict
+
+data_dict = interface_loader(file_paths)
 
 # all_books = data_dict["all_books_final.parquet"]
 # all_books_ratings = all_books[['title', 'rating', 'num_ratings']]
