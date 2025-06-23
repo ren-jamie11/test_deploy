@@ -18,22 +18,32 @@ file_paths = ["data/all_books_final.parquet",
               "data/all_labeled_reviews.parquet",
               "data/compact_user_genre_pct.parquet",
               "data/main_user_item_matrix.parquet"]
+# @st.cache_data
+# def interface_loader(file_paths):
+#     """ Load parquet files needed for calculations
+#         Loads into st.st.session_state.data_dict
+#         (only required 1st time)
+#     """
+#     def load_file(path):
+#         file_name = os.path.basename(path)
+#         df = pd.read_parquet(path)
+#         return file_name, df
+
+#     data_dict = {}
+#     with ThreadPoolExecutor() as executor:
+#         results = executor.map(load_file, file_paths)
+#         for name, df in results:
+#             data_dict[name] = df
+#     return data_dict
+
 @st.cache_data
 def interface_loader(file_paths):
-    """ Load parquet files needed for calculations
-        Loads into st.st.session_state.data_dict
-        (only required 1st time)
-    """
-    def load_file(path):
+    """ Load parquet files needed for calculations. """
+    data_dict = {}
+    for path in file_paths:
         file_name = os.path.basename(path)
         df = pd.read_parquet(path)
-        return file_name, df
-
-    data_dict = {}
-    with ThreadPoolExecutor() as executor:
-        results = executor.map(load_file, file_paths)
-        for name, df in results:
-            data_dict[name] = df
+        data_dict[file_name] = df
     return data_dict
 
 if "data_dict" not in st.session_state: 
