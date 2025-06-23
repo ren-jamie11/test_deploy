@@ -36,40 +36,40 @@ file_paths = ["data/all_books_final.parquet",
 #             data_dict[name] = df
 #     return data_dict
 
-# @st.cache_data
-# def interface_loader(file_paths):
-#     """ Load parquet files one by one, with debug info. """
-#     st.write("new attempt!")
-#     data_dict = {}
-#     for path in file_paths:
-#         st.write(f"🔄 Loading {path}...")
-#         try:
-#             file_name = os.path.basename(path)
-#             df = pd.read_parquet(path)
-#             data_dict[file_name] = df
-#             st.write(f"✅ Loaded {file_name} ({len(df)} rows)")
-#         except Exception as e:
-#             st.error(f"❌ Failed to load {path}: {e}")
-#             raise e  # Optional: crash visibly
-#     return data_dict
-
 @st.cache_data
-def load_parquet_file(path):
-    return pd.read_parquet(path)
-
 def interface_loader(file_paths):
+    """ Load parquet files one by one, with debug info. """
+    st.write("new attempt!")
     data_dict = {}
     for path in file_paths:
         st.write(f"🔄 Loading {path}...")
         try:
             file_name = os.path.basename(path)
-            df = load_parquet_file(path)
+            df = pd.read_parquet(path)
             data_dict[file_name] = df
             st.write(f"✅ Loaded {file_name} ({len(df)} rows)")
         except Exception as e:
             st.error(f"❌ Failed to load {path}: {e}")
-            raise e
+            raise e  # Optional: crash visibly
     return data_dict
+
+# @st.cache_data
+# def load_parquet_file(path):
+#     return pd.read_parquet(path)
+
+# def interface_loader(file_paths):
+#     data_dict = {}
+#     for path in file_paths:
+#         st.write(f"🔄 Loading {path}...")
+#         try:
+#             file_name = os.path.basename(path)
+#             df = load_parquet_file(path)
+#             data_dict[file_name] = df
+#             st.write(f"✅ Loaded {file_name} ({len(df)} rows)")
+#         except Exception as e:
+#             st.error(f"❌ Failed to load {path}: {e}")
+#             raise e
+#     return data_dict
 
 data_dict = interface_loader(file_paths)
 
