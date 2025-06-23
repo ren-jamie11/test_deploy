@@ -63,8 +63,8 @@ books_author_date = books_author_date.set_index('title')
 users_data = data_dict["users_data.parquet"]
 genre_labels = data_dict["genre_labels.parquet"]
 all_labeled_reviews = data_dict["all_labeled_reviews.parquet"]
-compact_user_genre_pct = data_dict["compact_user_genre_pct.parquet"]
-main_user_item_matrix = data_dict["main_user_item_matrix.parquet"]
+# compact_user_genre_pct = data_dict["compact_user_genre_pct.parquet"]
+# main_user_item_matrix = data_dict["main_user_item_matrix.parquet"]
 
 def genre_subtext(title, spaces = 2):
     """ Basic formatting/text function
