@@ -15,9 +15,9 @@ fiction_sliders, col2, nonfiction_sliders, col4, col_recommend = st.columns([2, 
 file_paths = ["data/all_books_final.parquet",
               "data/users_data.parquet",
               "data/genre_labels.parquet",
-              "data/all_labeled_reviews.parquet",]
-            #   "data/compact_user_genre_pct.parquet",
-            #   "data/main_user_item_matrix.parquet"]
+              "data/all_labeled_reviews.parquet",
+              "data/compact_user_genre_pct.parquet",
+              "data/smaller_user_item_matrix.parquet"]
 # @st.cache_data
 # def interface_loader(file_paths):
 #     """ Load parquet files needed for calculations
@@ -160,4 +160,5 @@ nonfiction_values = [st.session_state[g]/100 for g in nonfiction_genres]
 
 # ----------------------------- WORKED UP TO THIS POINT (trying load interface) -------------------------------
 
+st.write(science_fiction+philosophy)
 st.write(users_data.head())
