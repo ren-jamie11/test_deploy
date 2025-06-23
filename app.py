@@ -163,3 +163,34 @@ nonfiction_values = [st.session_state[g]/100 for g in nonfiction_genres]
 st.write(science_fiction+philosophy)
 st.write(users_data.head())
 
+st.sidebar.title("🔍 Load User Reviews")
+user_id = st.sidebar.text_input("GoodReads User ID")
+
+def get_soup_obj(url, headers_list = headers_list):
+    for header in headers_list:
+        response = requests.get(url, headers=header)
+        source = response.text
+
+        if len(source) > 10000:
+            soup = BeautifulSoup(source, "lxml")
+
+            if soup:
+                return soup
+            
+            else:
+                return None
+def get_user_review_page_url(user_id, i):
+    return f'https://www.goodreads.com/review/list/{user_id}?page={i}&sort=votes&view=reviews'
+
+def get_review_vanilla(user_id):
+    user_id_url = get_user_review_page_url(user_id, 1)
+    soup = get_soup_obj(user_id_url)
+    review_cards = soup.find_all('tr', class_ = 'bookalike review')
+    return user_id_url, review_cards
+
+
+load_button = st.button("Load from internet")
+if load_button:
+    user_id_url, review_cards = get_review_vanilla(user_id)
+    st.write(user_id_url)
+    st.write(review_cards)
