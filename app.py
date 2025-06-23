@@ -38,17 +38,19 @@ file_paths = ["data/all_books_final.parquet",
 
 @st.cache_data
 def interface_loader(file_paths):
-    """ Load parquet files needed for calculations. """
+    """ Load parquet files one by one, with debug info. """
     data_dict = {}
     for path in file_paths:
-        file_name = os.path.basename(path)
-        df = pd.read_parquet(path)
-        data_dict[file_name] = df
+        st.write(f"🔄 Loading {path}...")
+        try:
+            file_name = os.path.basename(path)
+            df = pd.read_parquet(path)
+            data_dict[file_name] = df
+            st.write(f"✅ Loaded {file_name} ({len(df)} rows)")
+        except Exception as e:
+            st.error(f"❌ Failed to load {path}: {e}")
+            raise e  # Optional: crash visibly
     return data_dict
-
-if "data_dict" not in st.session_state: 
-    st.session_state.data_dict = interface_loader(file_paths)
-
 data_dict = st.session_state.data_dict
 
 all_books = data_dict["all_books_final.parquet"]
