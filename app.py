@@ -51,6 +51,10 @@ def interface_loader(file_paths):
             st.error(f"❌ Failed to load {path}: {e}")
             raise e  # Optional: crash visibly
     return data_dict
+
+if "data_dict" not in st.session_state: 
+    st.session_state.data_dict = interface_loader(file_paths)
+
 data_dict = st.session_state.data_dict
 
 all_books = data_dict["all_books_final.parquet"]
